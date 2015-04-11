@@ -1,0 +1,5 @@
+Agora o enunciado diz-nos que vamos usar as fastEthernet 13-15
+para encapsulation dot1q portanto são essas que ligamos os dois
+SW.
+
+O projeto deste exercício não ficou a funcionar..

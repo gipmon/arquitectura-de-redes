@@ -1,0 +1,35 @@
+Ambos os switchs têm:
+
+Usando Ethernet Switch não é preciso configurar nada com o terminal, é tudo no
+GUI.
+
+Porta VLAN Type
+1   1   access
+2   1   access
+3   2   access
+4   2   access
+5   3   access
+6   3   access
+7   1   dot1q
+8   1   dot1q
+
+Portas access: são portas de ligação para os dados daquela VLAN
+Portas dot1q: Os administradores da rede devem assegurar portas para os
+dispositivos com o não (untagged) uso do protocolo 802.1Q unidos são
+configurados para transmitir frames.
+O protocolo IEEE 802.1q permite utilizarmos apenas um cabo na comunicação
+entre os Switches.
+São as chamadas ligações Trunk, por default todas as VLANs são transportadas.
+
+VPCS, configure IP Address:
+VPCS> ip 10.1.1.101 gateway(neste caso não há)
+ip 10.2.2.101
+
+temos de ser capazes de pingar VPCS que estão na mesma vlan mas em ous que estão
+em vlans diferentes não podem ser acessíveis
+
+see ip address:
+show ip
+
+save configuration each VPCS
+save

@@ -1,0 +1,17 @@
+show vlan-switch brief
+
+vlan 1 é end-to-end
+  pode ir de um lado para o outro
+  passa na camada 2
+
+vlan's end to end tiramos do routing
+
+Uma unica ligação de trunk, em vez de uma para o L3 e outra para o end-to-end.
+Deixo passar a Vlan 1 que é end-to-end e as outras não deixo passar. Crio uma
+nova vlan de interligação que apenas vai servir para transmitir entre ambos
+os switchs, VLAN101. Transporta o trafego das vlans end-to-end.
+São utilizadas para fazer a interligação das VLANs, e por onde vai passar o trafego
+das vlans locais.
+Vai deixar passar as vlans end-to-end. Transporta o restante tráfego, só tem validade
+entre os switchs, apenas de ligação. Transporta todo o restante tráfego.
+O switch do meio não faz nada, apenas serve para ligações externas.

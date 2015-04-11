@@ -1,0 +1,4 @@
+end-to-end -> global scope within network
+Cisco equipments have default VLANs that must be considered end-to-end (1002-1005)
+
+temos uma ligação Trunk para passar a Vlan1 que é end-to-end VLAN (1)
