@@ -1,0 +1,147 @@
+Tunnel:
+Um tunnel IP-IP é um pacote IP dentro de outro pacote IP.
+Dois IP-IP tunnel são configurados entre dois end-points. Adiciona
+um cabeçalho com source e destination igual a esses endpoints.
+Com IP-GRE-IP suporta pacotes multicast.
+
+Temos a NET A com o endereço 136.192.0.0/24, a NET B com o endereço
+136.192.0/24, a NET C com o endereço 136.192.2.0/24 e a NET D com o
+endereço 136.192.3.0/24.
+
+O Tunnel vai ser configurado para ir desde o Router1 para o Router3
+tendo como source 136.192.1.1 e destino 136.192.2.3. Como é um Tunnel
+os pacotes IP vão ser encapsulados noutro pacote IP com o source e
+destination igual ao desses endpoints independentemente qual seja o
+source e destination dos pacotes IP encapsulados.
+
+Usamos uma rota estática desde o Router 1 para a rede 136.192.3.0
+através do Tunnel 0 usando como destino (next hop) a interface do
+Router 3 136.192.2.3
+
+Mas como o tunel não tem endereço IP então não vai funcionar, então
+no exercício 4 vamos configurar uma rede 10.1.1.0/30 para o Tunnel0
+em ambos os Routers.
+
+
+**IPv6 Basic Mechanisms**
+O PC vai imediatamente enviar um Neighbor Solicitation para o Router
+e nesse indica qual é o endereço da placa de rede. Para saber se
+alguem mais tem um mac address igual. Se ninguem respondeu então ok.
+
+E envia um Router Solicitation, com o fe80::<interface ID> à procura
+de algum router. Entretanto o router responde com o Router
+advertisement e depois router advertisement e
+eventualmente caso neste router advertisement for anunciado um
+endereço global o terminal irá receber esses endereços globais e
+então volta novamente a tentar verificar se há endereços duplicados.
+
+Isto com o todos os exercícios feitos desta parte vamos ter o router com o
+endereço global na internet configurado, e o computador vai ficar com o
+endereço link locak e o endereço global.
+
+
+R1#show ipv6 route
+IPv6 Routing Table - 7 entries
+Codes: C - Connected, L - Local, S - Static, R - RIP, B - BGP
+       U - Per-user Static route
+       I1 - ISIS L1, I2 - ISIS L2, IA - ISIS interarea, IS - ISIS summary
+       O - OSPF intra, OI - OSPF inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
+       ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2
+C   2001:A:1:1::/64 [0/0]
+     via ::, FastEthernet0/0
+L   2001:A:1:1:C001:4FF:FEFF:0/128 [0/0]
+     via ::, FastEthernet0/0
+C   2001:A:1:2::/64 [0/0]
+     via ::, FastEthernet0/0
+L   2001:A:1:2::/128 [0/0]
+     via ::, FastEthernet0/0
+L   FE80::/10 [0/0]
+     via ::, Null0
+L   FF00::/8 [0/0]
+     via ::, Null0
+
+
+----
+
+
+R1#show ipv6 interface brief
+FastEthernet0/0            [up/up]
+    FE80::C001:4FF:FEFF:0
+    2001:A:1:1:C001:4FF:FEFF:0
+    2001:A:1:2::
+FastEthernet0/1            [administratively down/down]
+
+
+-----
+
+tc@Linux:~$ ifconfig
+eth0      Link encap:Ethernet  HWaddr 08:00:27:7B:D4:EA
+          inet6 addr: 2001:a:1:1:a00:27ff:fe7b:d4ea/64 Scope:Global
+          inet6 addr: fe80::a00:27ff:fe7b:d4ea/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:4 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:143 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:600 (600.0 B)  TX bytes:44067 (43.0 KiB)
+
+a00:27ff:fe7b:d4ea => interface ID
+
+link local
+- apenas válido na mesma LAN ou link
+- FE80::/10
+
+global
+- 2...
+
+~IPv6 Interface Identifier
+São os últimos 64 bits de qualquer endereço, e identificam a interface que
+está a enviar. Podem ser configurados automaticamente a partir do
+seu MAC Address (EUI-64).
+Podem ser feitos aleatóreamente por números aleatórios. Com servidor DHCP
+ou manualmente.
+
+~EUI-64 Format
+Pega nos 48bits, aping6  2001:A:1:2::bre ao meio, e mete sempre FF FE no meio desses bytes.
+Sabemos assim que vai lá o EUI-64.
+O primeiro byte pode levar o valor 0 ou 1. 0 se queremos que tenha significado
+local. ou 1 se quisermos ter para global endereço.
+
+
+11.
+2001:A:1:2:: (endereço anycast do router)
+ping6 2001:A:1:2::
+
+FE80::C001:4FF:FEFF:0 (endereço link local)
+ping6 FE80::C001:4FF:FEFF:0
+
+2001:A:1:1:C001:4FF:FEFF:0 (global address)
+ping6 2001:A:1:1:C001:4FF:FEFF:0
+
+
+-- IPv6 Tunneling
+
+O endereço do Router1 do Tunnel 1 é
+interface Tunnel1
+ no ip address
+ no ip redirects
+ ipv6 address 2002:88C0:101::1/48
+ tunnel source FastEthernet0/1
+ tunnel mode ipv6ip 6to4
+
+Então do Router1 fazemos:
+R2#ping 2002:88C0:101::1
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 2002:88C0:101::1, timeout is 2 seconds:
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 28/30/32 ms
+
+No WireShark vemos pacotes a com source: 2002:88c0:102::2 que é o endereço
+IPv6 do Router 1 a ir para o 2002:88C0:101::1. Ao abrirmos esses pacotes vemos
+Sabemos que o Router1 e Router2 são IPv6 mas têm um tunnel ipv6ip 6to4 porque
+a Net B é IPv4 por isso é preciso este tunneling para fazer o encapsulamento
+para passar nesta rede. Ou seja, no WireShark vai estar um header IPv6 dentro
+de um header IPv4, assim como na resposta é obtido o mesmo.
+
+
+6to4 Tunnels: 2002:<ipv4 add:ress-hex>::/48
