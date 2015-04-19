@@ -1,0 +1,83 @@
+Classful (não suporta mascaras)
+Se um router tiver a correr estes tipos de protocologos e tiver de enviar
+informação de uma sub-rede, então ele não vai enviar o endereço de sub-rede,
+  apenas da rede (auto sumarização). A informação de encaminhamento não vai
+  ficar correta, vai-se perder informação (RIPv1) ou seja, não vai conseguir
+  enviar para sub-redes.
+Considerações sobre split-horizon (FR =) )
+
+Com split-horizon: para cada inferface apenas anuncia redes de desinto que
+não a use para chegar a essa rede
+
+
+RIPv2 suporta máscaras de tamanho variável, sub redes e sumariza as rotas nas
+  suas fronteiras. Os pacotes de RIPv2 não são enviados para o broadcast (RIPv1),
+  envia-se para um endereço de todos os endereços RIPv2 (224.0.0.9).
+  Tem um mecanismo de segurança para as trocas de mensagens sejam autenticadas.
+
+
+ex2:
+
+## ROUTER 1
+
+R1#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
+C       10.10.10.0/30 is directly connected, Loopback0
+C       10.3.3.0/24 is directly connected, FastEthernet0/0
+R       10.2.2.0/24 [120/1] via 10.3.3.3, 00:00:38, FastEthernet0/0
+                    [120/1] via 10.1.1.2, 00:00:38, FastEthernet0/1
+C       10.1.1.0/24 is directly connected, FastEthernet0/1
+
+A rede 10.10.10.0/30 está diretamente ligada e é a interface Loopback0
+A rede 10.3.3.0/24 está diretamente ligada na interface f0/0
+Para a rede 10.2.2.0/24, que foi aprendida por RIP, podemos ir pela interface f0/0
+e f0/1 pela rede 10.3.3.0 e 10.1.1.0 respetivamente. Ambos os caminhos tem o mesmo
+custo pelo que aparecem então na tabela de encaminhamento. Sendo assim irá ser feito
+um balanceamento de pedidos quando for para fazer routing de pacotes para esta rede
+apartir do Router1.
+A rede 10.1.1.0 está diretamente ligada ao interface f0/1.
+
+## ROUTER 2
+
+R2#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
+C       10.20.20.0/30 is directly connected, Loopback0
+R       10.3.3.0/24 [120/1] via 10.2.2.3, 00:00:27, FastEthernet0/1
+                    [120/1] via 10.1.1.1, 00:00:10, FastEthernet0/0
+C       10.2.2.0/24 is directly connected, FastEthernet0/1
+C       10.1.1.0/24 is directly connected, FastEthernet0/0
+
+A análise para esta rede é semelhante à de cima.
+
+Agora analisando os pacotes:
+analisando os pacotes podemos ver que não há nada de especial em relação a
+fundamentos de rede. Tem o split horizon ativo.
+
+
+ex3:
+No exercício 3, podemos logo analisar na captura diferenças óbvias. No RIPv1 é enviado
+para o endereço broadcast: 255.255.255.255 todos os pacotes RIP. Agora não, é
+enviado para o endereço multicast 224.0.0.9 que quer dizer todos os routers RIP
+que estão a correr a versão 2.
+Também conseguimos ver que suporta máscaras de tamanho variável, sub redes e
+sumariza as rotas nas suas fronteiras.
