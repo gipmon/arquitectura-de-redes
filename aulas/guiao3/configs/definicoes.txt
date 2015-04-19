@@ -28,16 +28,33 @@ O PC vai imediatamente enviar um Neighbor Solicitation para o Router
 e nesse indica qual é o endereço da placa de rede. Para saber se
 alguem mais tem um mac address igual. Se ninguem respondeu então ok.
 
-E envia um Router Solicitation, com o fe80::<interface ID> à procura
-de algum router. Entretanto o router responde com o Router
-advertisement e depois router advertisement e
-eventualmente caso neste router advertisement for anunciado um
+Pacote:
+Neighbor Solicitation for fe80::<interface ID>.
+
+E envia um Router Solicitation, com source fe80::<interface ID> à procura
+de algum router.
+
+Pacote:
+Router Solicitation from <MAC ADDRESS>
+
+Entretanto o router responde com o Router advertisement e depois router
+advertisement e eventualmente caso neste router advertisement for anunciado um
 endereço global o terminal irá receber esses endereços globais e
 então volta novamente a tentar verificar se há endereços duplicados.
+
+Pacote:
+Router Advertisement
 
 Isto com o todos os exercícios feitos desta parte vamos ter o router com o
 endereço global na internet configurado, e o computador vai ficar com o
 endereço link locak e o endereço global.
+
+Depois faz Neighbor Solicitation para os endereços globais 2..
+
+Pacotes Neighbor Solicitation (neste caso temos dois porque foram configurados
+dois IPv6 globais no router e como é o router que dá os dados para int então ele
+fica com dois endereços IP Globais o que faz com que depois tb tenha de enviar
+dois Neighbor Solicitation.)
 
 
 R1#show ipv6 route
@@ -108,11 +125,11 @@ local. ou 1 se quisermos ter para global endereço.
 
 
 11.
-2001:A:1:2:: (endereço anycast do router)
-ping6 2001:A:1:2::
-
 FE80::C001:4FF:FEFF:0 (endereço link local)
 ping6 FE80::C001:4FF:FEFF:0
+
+2001:A:1:2:: (endereço anycast do router)
+ping6 2001:A:1:2::
 
 2001:A:1:1:C001:4FF:FEFF:0 (global address)
 ping6 2001:A:1:1:C001:4FF:FEFF:0
