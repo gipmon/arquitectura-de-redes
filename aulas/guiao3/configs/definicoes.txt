@@ -125,12 +125,15 @@ local. ou 1 se quisermos ter para global endereço.
 
 
 11.
+a)
 FE80::C001:4FF:FEFF:0 (endereço link local)
 ping6 FE80::C001:4FF:FEFF:0
 
+b)
 2001:A:1:2:: (endereço anycast do router)
 ping6 2001:A:1:2::
 
+c)
 2001:A:1:1:C001:4FF:FEFF:0 (global address)
 ping6 2001:A:1:1:C001:4FF:FEFF:0
 
