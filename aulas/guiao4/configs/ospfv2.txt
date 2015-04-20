@@ -1,0 +1,141 @@
+** OSPF**
+ Inicialmente recebe toda a informação necessária sobre a topologia da rede,
+quantos routers existem e quais são os seus IPs, as suas redes etc.
+O router responde depois rapidamente a alterações que surjam mais tarde.
+
+ Sempre que surja uma alteração enviam um update, sempre que haja alteração da
+topologia da rede.
+ Enviam eventos periódicos, são enviados na ordem de 30 minutos.
+ Depois do inicio e de contruida a base de dados não  há mais troca de informação,
+só há um pacote de vez em quando para atualização.
+ Depois vão usar o algoritmo de Dijkstra para calcular o caminho de custo minimo
+para cada destino com base nos custos que sabe sobre as interfaces.
+
+ O router deve recolher informação sobre:
+ - Routers vizinhos, se um router perder o contacto sobre um seu vizinho
+durante alguns segundos vai assumir que essas rotas já não são válidas então
+tem que recalcular as rotas novamente.
+ - Eles enviam pacotes do género de Hello para saberem que ainda lá estão.
+ - Existe uma tabela de adjacências, de vizinhanças (sabendo assim os seus
+vizinhos a que está ligado)
+ - Todos os routers de uma determinada área, tem que conhecer os seus Link
+state advertisements onde vai os routers e as redes que existem. Os routers
+recolhem essa informação e vão guardar na tabela de topologia.
+ - Vão calcular os melhores caminhos para cada destino. Correm um algoritmo de
+dijkstra para calcular o melhor caminho para cada rede.
+ - Depois de acabar a convergência não há mais troca de pacotes. A única coisa
+que trocam é pacotes Hello. Só voltam a enviar updates quando ha uma alteraçao
+da topologia.
+ - Cada router recebe os LSA e reencaminha para os outros routers esses LSA.
+Depois volta a fazer o mesmo sistema, djikstra, melhroes caminhos, routing table.
+ - Esta informação deve ser sincronizada entre routers, deve haver um mecanismo
+para saber que todos os vizinhos receberam o LSA, então os seus vizinhos enviam
+um pacote a dizer que enviam.
+ - São enviados dentro da sua área do OSPF.
+ - Cada LSA é numerado e tem um tempo de vida.
+ - Assim cada router saber que recebeu o último LSA. São periodicamente
+atualizados para confirmar a informação de topologia antes que as entradas da
+base de dados expire. SIm, porque as entradas das base de dados agora expiram,
+têm um tempo últil.
+
+
+** Router **
+ Um router precisa de ter um RouterID, o maior endereço IPV4 de todas as interfaces
+do router onde exista OSPF a correr.
+ Assim que é configurado o OSPF é enviado logo pacotes OSPF para enviar e receber
+pacotes Hello para e dos seus vizinhos, não são enviados para ninguém em particular,
+são enviados para endereços multicast.
+ - Vizinhanças:
+ . Full adjacency - caso estejam ligados um ao outro, são vizinhos.
+ . Então e aqueles que não estão diretamente ligados? Para isso usamos um designated
+router que assegura que os LSA chegam a todos e são recebidos por todos. Tem o papel
+de garantir que a sincronização é concluida. Depois existe um backup designated router
+que só entra em acção se o designated router falhar.
+ Os outros routers tem que tentar formar adjacencias com o DR. Basicamente o primeiro
+a ser configurado é o DR e depois é o Backup designated router. O DR será aquele que
+tiver a maior prioridade.
+ Caso haja empate, é o que tiver maior router ID (ou é defindo à mão ou quem tiver
+maior IP)
+
+ Quando o DR falha, o BDR aparece. O BDR vai fazer tudo o que o DR faz, as decisões
+do DR é que contam, mas faz exatamente o que o DR faz, de forma a que quando for
+chamado tenha a inoformação toda.
+
+ Depois de serem eleitos eles vão-se manter para sempre, independentemente se outros
+routers se liguem.
+ A identificação de uma rede OSPF é sempre feita apartir do endereço IP da interface
+do DR.
+
+** Base de dados **
+ LS Database:
+ - Tem os LSA de todos os routers. Tem duas partes, uma parte dos routers e outra
+das redes que existem. Cada router é identificado com o seu Router ID.
+ A parte das redes LSA tem o seu Link ID que não é nada mais nada menos que
+o endereço IP da interface do DR.
+
+ - Sequence number do LSA que recebeu esta inforamção e count (quando o tempo
+acabar ele tem de receber outro LSA para atualizar a informação).
+
+ Link ID (Router ID)
+ Link Count (duas interfaces ligadas)
+ Advertising Router (Quem enviou essa informação)
+ LS age (tempo até ser invalida)
+
+ - Base de dados dos routers:
+ . Router ID (Link State ID)
+ . Está ligado a duas redes (Number of Links)
+ . Sabe-se quais são as redes a q esta ligado.
+ . Rede de transito, continua para outro router, não acaba ali
+ . DR dessa rede (primeira) (20.20.20.2)
+ . Tos metrics (custo OSPF)
+
+Esta informação está replicada em todos os routers OSPF, esta informação é igual
+em todo o lado.
+
+Como só temos projeto para o último exerício, apartir do momento que adicionarmos
+o router 4, vamos analisar só para esta topologia de rede.
+
+R4#show ip ospf interface brief
+Interface    PID   Area            IP Address/Mask    Cost  State Nbrs F/C
+Fa0/0        1     3               10.4.4.4/24        10    BDR   1/1
+
+Sabemos que ele tem como IP da interface 10.4.4.4 e é o Backup Designated Router.
+
+vamos agora ao router 1 e fazer o mesmo:
+R1#show ip ospf interface brief
+Interface    PID   Area            IP Address/Mask    Cost  State Nbrs F/C
+VL0          1     0               10.3.3.1/24        10    P2P   1/1
+Fa0/1        1     3               10.4.4.1/24        50    DR    1/1
+Lo0          1     51              10.10.10.1/30      1     P2P   0/0
+Fa0/0        1     51              10.3.3.1/24        10    BDR   1/1
+
+Sabemos então que na rede 10.4.4.0/24 o Router R1 é Designated Router com o endereço
+10.4.4.1. O seu maior endereço é 10.10.10.1.
+
+Agora no Router 4 vamos ver a sua base de dados de networks, sabemos que ele está
+numa Área 3 e não vai aprender as outras redes pois não é sequer um router
+fronteira (ABR).
+
+R4#show ip ospf database network
+
+            OSPF Router with ID (10.4.4.4) (Process ID 1)
+
+		Net Link States (Area 3)
+
+  Routing Bit Set on this LSA
+  LS age: 405
+  Options: (No TOS-capability, DC)
+  LS Type: Network Links
+  Link State ID: 10.4.4.1 (address of Designated Router)
+  Advertising Router: 10.10.10.1
+  LS Seq Number: 80000001
+  Checksum: 0xC50D
+  Length: 32
+  Network Mask: /24
+	Attached Router: 10.10.10.1
+	Attached Router: 10.4.4.4
+
+Neste Router temos então que o endereço do Designated Router é o 10.4.4.1 e se
+formos ver o endereço da sua int f0/1 temos que é mesmo esse o seu endereço.
+O seu Router ID é o 10.0.10.1 (maior IP das interfaces), sendo assim é o AR.
+Sabemos que tem como Attached Router ele próprio e o Router 1.
