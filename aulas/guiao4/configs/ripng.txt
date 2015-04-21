@@ -1,1 +1,47 @@
 ## RIPng
+R1#show ipv6 rip 1 database
+RIP process "1", local RIB
+ ::/0, metric 11, installed
+     FastEthernet0/0/FE80::C002:4FF:FE16:0, expires in 174 secs
+
+R1#show ipv6 ospf 1
+ Routing Process "ospfv3 1" with ID 1.1.1.1
+ SPF schedule delay 5 secs, Hold time between two SPFs 10 secs
+ Minimum LSA interval 5 secs. Minimum LSA arrival 1 secs
+ LSA group pacing timer 240 secs
+ Interface flood pacing timer 33 msecs
+ Retransmission pacing timer 66 msecs
+ Number of external LSA 0. Checksum Sum 0x000000
+ Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+ Reference bandwidth unit is 100 mbps
+    Area BACKBONE(0)
+	Number of interfaces in this area is 2
+	SPF algorithm executed 4 times
+	Number of LSA 12. Checksum Sum 0x04FFB5
+	Number of DCbitless LSA 0
+	Number of indication LSA 0
+	Number of DoNotAge LSA 0
+	Flood list length 0
+  
+R2#show ipv6 rip 1 database
+RIP process "1", local RIB
+ 2001:A:1:1::/64, metric 2
+     FastEthernet0/0/FE80::C001:4FF:FE15:0, expires in 155 secs
+ 2001:B:1:1::/64, metric 2
+     FastEthernet0/0/FE80::C001:4FF:FE15:0, expires in 155 secs
+ 2001:C:1:1::/64, metric 2
+     FastEthernet0/1/FE80::C003:4FF:FE17:0, expires in 152 secs
+ 2001:D:1:1::/64, metric 2
+     FastEthernet0/1/FE80::C003:4FF:FE17:0, expires in 152 secs
+
+R2#sh ipv6 prefix-list
+ipv6 prefix-list eclipse: 2 entries
+   seq 2 deny 2001:C:1:1::/64
+   seq 4 permit 2001:D:1:1::/64
+
+R3#show ipv6 rip 1 database
+RIP process "1", local RIB
+ 2001:B:1:1::/64, metric 2
+     FastEthernet0/0/FE80::C002:4FF:FE16:1, expires in 158 secs
+ 2001:C:1:1::/64, metric 2
+     FastEthernet0/0/FE80::C002:4FF:FE16:1, expires in 158 secs
