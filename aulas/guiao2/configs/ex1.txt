@@ -35,8 +35,3 @@ save configuration each VPCS
 save
 
 As VLAN1, 2 e 3 são end-to-end pois estão presentes nos dois switchs.
-
-PING PC1 para o PC5 (vlans diferentes)
-
-No IP está sempre direito, nos mac address é que são subtituidos. Primeiro vai do
-pc para o router e lá substitui os mac address mas os IPs mantêm-se.

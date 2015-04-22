@@ -31,3 +31,10 @@ depois é possível pingar todos os VPC
 
 save configuration each VPCS
 save
+
+
+PING PC1 para o PC5 (vlans diferentes)
+
+No IP está sempre direito, nos mac address é que são subtituidos. Primeiro vai do
+pc para o router e lá substitui os mac address mas os IPs mantêm-se, daí existirem
+pacotes duplicados.
