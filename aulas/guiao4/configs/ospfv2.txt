@@ -30,12 +30,12 @@ da topologia.
 Depois volta a fazer o mesmo sistema, djikstra, melhroes caminhos, routing table.
  - Esta informação deve ser sincronizada entre routers, deve haver um mecanismo
 para saber que todos os vizinhos receberam o LSA, então os seus vizinhos enviam
-um pacote a dizer que enviam.
+um pacote a dizer que receberam.
  - São enviados dentro da sua área do OSPF.
  - Cada LSA é numerado e tem um tempo de vida.
- - Assim cada router saber que recebeu o último LSA. São periodicamente
+ - Assim cada router sabe que recebeu o último LSA. São periodicamente
 atualizados para confirmar a informação de topologia antes que as entradas da
-base de dados expire. SIm, porque as entradas das base de dados agora expiram,
+base de dados expire. Sim, porque as entradas das base de dados agora expiram,
 têm um tempo últil.
 
 
@@ -76,7 +76,7 @@ o endereço IP da interface do DR.
  - Sequence number do LSA que recebeu esta inforamção e count (quando o tempo
 acabar ele tem de receber outro LSA para atualizar a informação).
 
- Link ID (Router ID)
+ Link ID (endereço IP da interface do DR)
  Link Count (duas interfaces ligadas)
  Advertising Router (Quem enviou essa informação)
  LS age (tempo até ser invalida)
@@ -104,7 +104,7 @@ Sabemos que ele tem como IP da interface 10.4.4.4 e é o Backup Designated Route
 vamos agora ao router 1 e fazer o mesmo:
 R1#show ip ospf interface brief
 Interface    PID   Area            IP Address/Mask    Cost  State Nbrs F/C
-VL0          1     0               10.3.3.1/24        10    P2P   1/1
+VL0(VirtualLInk)    1     0               10.3.3.1/24        10    P2P   1/1
 Fa0/1        1     3               10.4.4.1/24        50    DR    1/1
 Lo0          1     51              10.10.10.1/30      1     P2P   0/0
 Fa0/0        1     51              10.3.3.1/24        10    BDR   1/1
@@ -132,8 +132,8 @@ R4#show ip ospf database network
   Checksum: 0xC50D
   Length: 32
   Network Mask: /24
-	Attached Router: 10.10.10.1
-	Attached Router: 10.4.4.4
+	Attached Router: 10.10.10.1 (Router 1 -> Router ID)
+	Attached Router: 10.4.4.4 (Router 4 -> Router ID)
 
 Neste Router temos então que o endereço do Designated Router é o 10.4.4.1 e se
 formos ver o endereço da sua int f0/1 temos que é mesmo esse o seu endereço.
@@ -145,22 +145,22 @@ R3#show ip ospf database
 
             OSPF Router with ID (10.30.30.1) (Process ID 1)
 
-		Router Link States (Area 0)
+		Router Link States (Area 0) -> Router ID
 
 Link ID         ADV Router      Age         Seq#       Checksum Link count
-10.10.10.1      10.10.10.1      1     (DNA) 0x80000007 0x005731 1
-10.20.20.65     10.20.20.65     147         0x80000003 0x00CDE5 3
-10.30.30.1      10.30.30.1      111         0x80000005 0x00F6DC 3
+10.10.10.1      10.10.10.1      1     (DNA) 0x80000007 0x005731 1 (Router1 Lo0)
+10.20.20.65     10.20.20.65     147         0x80000003 0x00CDE5 3 (Router 2)
+10.30.30.1      10.30.30.1      111         0x80000005 0x00F6DC 3 (Router 3)
 
 		Net Link States (Area 0)
 
 Link ID         ADV Router      Age         Seq#       Checksum
 10.2.2.2        10.20.20.65     147         0x80000001 0x00619A
 
-		Summary Net Link States (Area 0)
+		Summary Net Link States (Area 0) (redes)
 
 Link ID         ADV Router      Age         Seq#       Checksum
-10.3.3.0        10.10.10.1      17    (DNA) 0x80000001 0x002FD4
+10.3.3.0        10.10.10.1      17    (DNA) 0x80000001 0x002FD4 (Area 51 mas vem para a router3)
 10.3.3.0        10.30.30.1      142         0x80000001 0x0002D9
 10.4.4.0        10.10.10.1      17    (DNA) 0x80000001 0x00A930
 10.10.10.0      10.10.10.1      17    (DNA) 0x80000001 0x0021E0
@@ -172,6 +172,11 @@ Link ID         ADV Router      Age         Seq#       Checksum
 Link ID         ADV Router      Age         Seq#       Checksum
 10.10.10.1      10.30.30.1      144         0x80000001 0x004883
 
+Type 3 and 4 (Summary LSA) - São os que passam o sumário de redes entre routers.
+São enviados pelos routers da fronteira. Os ABRs é que passam os sumários de redes.
+Os tipo 3 descreve as rotas para as redes para determinadas áreas.
+OS tipo 4 para o ASBR (para fora).
+--------------------------------------------------------------------------------
                 Router Link States (Area 51)
 
 Link ID         ADV Router      Age         Seq#       Checksum Link count
