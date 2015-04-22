@@ -1,5 +1,5 @@
 Classful (não suporta mascaras)
-Se um router tiver a correr estes tipos de protocologos e tiver de enviar
+Se um router tiver a correr estes tipos de protocolos e tiver de enviar
 informação de uma sub-rede, então ele não vai enviar o endereço de sub-rede,
   apenas da rede (auto sumarização). A informação de encaminhamento não vai
   ficar correta, vai-se perder informação (RIPv1) ou seja, não vai conseguir
