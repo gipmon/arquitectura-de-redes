@@ -33,3 +33,5 @@ show ip
 
 save configuration each VPCS
 save
+
+As VLAN1, 2 e 3 são end-to-end pois estão presentes nos dois switchs.
