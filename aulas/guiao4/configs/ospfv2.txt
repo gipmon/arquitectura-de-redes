@@ -147,6 +147,9 @@ R3#show ip ospf database
 
 		Router Link States (Area 0) -> Router ID
 
+    Todos os routers que o Router 3 conhece, sendo o LINK ID o Router ID e o
+    ADV Router o Router que anunciou esse router.
+
 Link ID         ADV Router      Age         Seq#       Checksum Link count
 10.10.10.1      10.10.10.1      1     (DNA) 0x80000007 0x005731 1 (Router1 Lo0)
 10.20.20.65     10.20.20.65     147         0x80000003 0x00CDE5 3 (Router 2)
@@ -154,18 +157,23 @@ Link ID         ADV Router      Age         Seq#       Checksum Link count
 
 		Net Link States (Area 0)
 
-Link ID         ADV Router      Age         Seq#       Checksum
-10.2.2.2        10.20.20.65     147         0x80000001 0x00619A
+    Fazendo show ip ospf interface brief
+    Fa0/1        1     0               10.2.2.3/24        10    DR    1/1
+    conseguimos ver o que Router 3 é o Designated Router para a Area0
 
-		Summary Net Link States (Area 0) (redes)
-
 Link ID         ADV Router      Age         Seq#       Checksum
-10.3.3.0        10.10.10.1      17    (DNA) 0x80000001 0x002FD4 (Area 51 mas vem para a router3)
-10.3.3.0        10.30.30.1      142         0x80000001 0x0002D9
-10.4.4.0        10.10.10.1      17    (DNA) 0x80000001 0x00A930
-10.10.10.0      10.10.10.1      17    (DNA) 0x80000001 0x0021E0
-10.10.10.0      10.30.30.1      142         0x80000001 0x005877
-10.20.20.0      10.20.20.65     597         0x80000001 0x003462
+10.2.2.3        10.30.30.1      445         0x80000001 0x00F234
+
+		Summary Net Link States (Area 0)
+
+(rede)
+Link ID         ADV Router      Age         Seq#       Checksum
+10.3.3.0        10.10.10.1  (R1) 17    (DNA) 0x80000001 0x002FD4
+10.3.3.0        10.30.30.1  (R3) 142         0x80000001 0x0002D9
+10.4.4.0        10.10.10.1  (R1) 17    (DNA) 0x80000001 0x00A930
+10.10.10.0      10.10.10.1  (R1) 17    (DNA) 0x80000001 0x0021E0
+10.10.10.0      10.30.30.1  (R3) 142         0x80000001 0x005877
+10.20.20.0      10.20.20.65 (R2) 597         0x80000001 0x003462
 
                 Summary ASB Link States (Area 0)
 
@@ -184,12 +192,12 @@ Link ID         ADV Router      Age         Seq#       Checksum Link count
 10.30.30.1      10.30.30.1      143         0x80000004 0x008DE5 1
 
                 Net Link States (Area 51)
-
+                (DR da Area51)
 Link ID         ADV Router      Age         Seq#       Checksum
-10.3.3.1        10.10.10.1      153         0x80000001 0x003F64
+10.3.3.3        10.30.30.1      448         0x80000001 0x005D1C
 
                 Summary Net Link States (Area 51)
-
+(redes)
 Link ID         ADV Router      Age         Seq#       Checksum
 10.0.0.1        10.30.30.1      148         0x80000001 0x004798
 10.1.1.0        10.30.30.1      148         0x80000001 0x009441
@@ -199,6 +207,12 @@ Link ID         ADV Router      Age         Seq#       Checksum
 10.30.30.0      10.30.30.1      155         0x80000001 0x00268B
 
                 Summary ASB Link States (Area 51)
+                ---------------------------------
+ASBR Autonomous System Boundary Router é um router que está na fronteira, dá
+ligação para fora da empresa. Tem pelo menos um dos seus interfaces ligado a
+um domínio diferente.
+Pode ter dois papeis, pode ser um ABR e um ASBR ao mesmo tempo.
+
 
 Link ID         ADV Router      Age         Seq#       Checksum
 10.10.10.1      10.30.30.1      115         0x80000001 0x004883
@@ -210,3 +224,28 @@ Link ID         ADV Router      Age         Seq#       Checksum
 Link ID         ADV Router      Age         Seq#       Checksum Tag
 0.0.0.0         10.20.20.65     613         0x80000001 0x002C13 1
 193.1.1.0       10.10.10.1      609         0x80000001 0x007FBE 0
+
+
+----------------------------------------------------------------------------
+R3#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+
+Gateway of last resort is 10.2.2.2 to network 0.0.0.0
+
+     10.0.0.0/8 is variably subnetted, 8 subnets, 3 masks
+C       10.30.30.0/30 is directly connected, Loopback0
+O IA    10.20.20.0/24 [110/11] via 10.2.2.2, 00:03:48, FastEthernet0/1
+O       10.10.10.0/30 [110/11] via 10.3.3.1, 00:03:48, FastEthernet0/0
+O IA    10.4.4.0/24 [110/60] via 10.3.3.1, 00:03:48, FastEthernet0/0
+C       10.3.3.0/24 is directly connected, FastEthernet0/0
+C       10.2.2.0/24 is directly connected, FastEthernet0/1
+O       10.1.1.0/24 [110/20] via 10.2.2.2, 00:03:49, FastEthernet0/1
+O       10.0.0.1/32 [110/11] via 10.2.2.2, 00:03:49, FastEthernet0/1
+O E1 193.1.1.0/24 [110/30] via 10.3.3.1, 00:03:49, FastEthernet0/0
+O*E2 0.0.0.0/0 [110/1] via 10.2.2.2, 00:03:49, FastEthernet0/1
