@@ -6,7 +6,7 @@ O router responde depois rapidamente a alterações que surjam mais tarde.
  Sempre que surja uma alteração enviam um update, sempre que haja alteração da
 topologia da rede.
  Enviam eventos periódicos, são enviados na ordem de 30 minutos.
- Depois do inicio e de contruida a base de dados não  há mais troca de informação,
+ Depois do início e de construída a base de dados não  há mais troca de informação,
 só há um pacote de vez em quando para atualização.
  Depois vão usar o algoritmo de Dijkstra para calcular o caminho de custo minimo
 para cada destino com base nos custos que sabe sobre as interfaces.
@@ -24,7 +24,7 @@ recolhem essa informação e vão guardar na tabela de topologia.
  - Vão calcular os melhores caminhos para cada destino. Correm um algoritmo de
 dijkstra para calcular o melhor caminho para cada rede.
  - Depois de acabar a convergência não há mais troca de pacotes. A única coisa
-que trocam é pacotes Hello. Só voltam a enviar updates quando ha uma alteraçao
+que trocam é pacotes Hello. Só voltam a enviar updates quando há uma alteraçao
 da topologia.
  - Cada router recebe os LSA e reencaminha para os outros routers esses LSA.
 Depois volta a fazer o mesmo sistema, djikstra, melhroes caminhos, routing table.
@@ -54,12 +54,12 @@ que só entra em acção se o designated router falhar.
  Os outros routers tem que tentar formar adjacencias com o DR. Basicamente o primeiro
 a ser configurado é o DR e depois é o Backup designated router. O DR será aquele que
 tiver a maior prioridade.
- Caso haja empate, é o que tiver maior router ID (ou é defindo à mão ou quem tiver
+ Caso haja empate, é o que tiver maior router ID (ou é definido à mão ou quem tiver
 maior IP)
 
  Quando o DR falha, o BDR aparece. O BDR vai fazer tudo o que o DR faz, as decisões
 do DR é que contam, mas faz exatamente o que o DR faz, de forma a que quando for
-chamado tenha a inoformação toda.
+chamado tenha a informação toda.
 
  Depois de serem eleitos eles vão-se manter para sempre, independentemente se outros
 routers se liguem.
@@ -84,10 +84,10 @@ acabar ele tem de receber outro LSA para atualizar a informação).
  - Base de dados dos routers:
  . Router ID (Link State ID)
  . Está ligado a duas redes (Number of Links)
- . Sabe-se quais são as redes a q esta ligado.
- . Rede de transito, continua para outro router, não acaba ali
+ . Sabe-se quais são as redes a que está ligado.
+ . Rede de trânsito, continua para outro router, não acaba ali
  . DR dessa rede (primeira) (20.20.20.2)
- . Tos metrics (custo OSPF)
+ . TOS metrics (custo OSPF)
 
 Esta informação está replicada em todos os routers OSPF, esta informação é igual
 em todo o lado.

@@ -24,26 +24,31 @@ em ambos os Routers.
 
 
 **IPv6 Basic Mechanisms**
-O PC vai imediatamente enviar um Neighbor Solicitation para o Router
-e nesse indica qual é o endereço da placa de rede. Para saber se
-alguem mais tem um mac address igual. Se ninguem respondeu então ok.
-
 Pacote:
 Neighbor Solicitation for fe80::<interface ID>.
+
+O PC vai imediatamente enviar um Neighbor Solicitation para o Router
+e nesse indica qual é o endereço da placa de rede. Para saber se
+alguem mais tem um mac address igual. Se ninguem respondeu então ok
+E um link local igual <=
+
+--------------------
+Pacote:
+Router Solicitation from <MAC ADDRESS>
 
 E envia um Router Solicitation, com source fe80::<interface ID> à procura
 de algum router.
 
+--------------------
 Pacote:
-Router Solicitation from <MAC ADDRESS>
+Router Advertisement
 
 Entretanto o router responde com o Router advertisement e depois router
 advertisement e eventualmente caso neste router advertisement for anunciado um
 endereço global o terminal irá receber esses endereços globais e
 então volta novamente a tentar verificar se há endereços duplicados.
 
-Pacote:
-Router Advertisement
+---------------------
 
 Isto com o todos os exercícios feitos desta parte vamos ter o router com o
 endereço global na internet configurado, e o computador vai ficar com o
@@ -52,7 +57,7 @@ endereço link locak e o endereço global.
 Depois faz Neighbor Solicitation para os endereços globais 2..
 
 Pacotes Neighbor Solicitation (neste caso temos dois porque foram configurados
-dois IPv6 globais no router e como é o router que dá os dados para int então ele
+dois IPv6 globais no router e como é o router que dá os dados para intf então ele
 fica com dois endereços IP Globais o que faz com que depois tb tenha de enviar
 dois Neighbor Solicitation.)
 
@@ -157,7 +162,7 @@ Sending 5, 100-byte ICMP Echos to 2002:88C0:101::1, timeout is 2 seconds:
 Success rate is 80 percent (4/5), round-trip min/avg/max = 28/30/32 ms
 
 No WireShark vemos pacotes a com source: 2002:88c0:102::2 que é o endereço
-IPv6 do Router 1 a ir para o 2002:88C0:101::1. Ao abrirmos esses pacotes vemos
+IPv6 do Router 1 a ir para o 2002:88C0:101::1.
 Sabemos que o Router1 e Router2 são IPv6 mas têm um tunnel ipv6ip 6to4 porque
 a Net B é IPv4 por isso é preciso este tunneling para fazer o encapsulamento
 para passar nesta rede. Ou seja, no WireShark vai estar um header IPv6 dentro
