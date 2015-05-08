@@ -6,7 +6,7 @@ informação de uma sub-rede, então ele não vai enviar o endereço de sub-rede
   enviar para sub-redes.
 Considerações sobre split-horizon (FR =) )
 
-Com split-horizon: para cada inferface apenas anuncia redes de desinto que
+Com split-horizon: para cada inferface apenas anuncia redes de destino que
 não a use para chegar a essa rede
 
 
