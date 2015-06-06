@@ -1,0 +1,27 @@
+en
+vlan database
+vlan 101
+vlan 102
+exit
+conf t
+ip routing
+
+int range f 1/0 - 9
+switchport mode trunk
+switchport trunk allowed vlan 1,9,10,101,102,1002-1005
+
+int Vlan 101
+ip address 10.101.0.101 255.255.255.0
+no autostate
+
+int Vlan 102
+ip address 10.102.0.101 255.255.255.0
+no autostate
+
+exit
+router ospf 1
+network 10.0.0.0 0.255.255.255 area 0
+passive-interface vlan 1,9,10,1002-1005
+
+end
+write
