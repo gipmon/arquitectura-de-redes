@@ -14,12 +14,12 @@ switchport mode trunk
 switchport trunk allowed vlan 1,9,10,101,102,1002-1005
 
 int Vlan 1
-ip address 10.1.0.2 255.255.254.0
+ip address 10.1.0.2 255.255.255.0
 no autostate
 no shutdown
 
 int Vlan 9
-ip address 10.9.0.2 255.255.254.0
+ip address 10.9.0.2 255.255.255.0
 no autostate
 no shutdown
 

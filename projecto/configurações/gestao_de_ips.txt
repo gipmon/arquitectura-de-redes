@@ -1,28 +1,29 @@
 Vlan1Ed1(Administraçao)
-10.1.0.0/23
-- 10.1.0.1/23 core1.txt
-- 10.1.0.2/23 core2.txt
-- 10.1.0.3/23 dcDist1.txt
-- 10.1.0.4/23 dcDist4.txt
-- 10.1.0.5/23 piso2_1.txt
+10.1.0.0/24
+- 10.1.0.1 core1.txt
+- 10.1.0.2 core2.txt
+- 10.1.0.3 dcDist1.txt
+- 10.1.0.4 dcDist2.txt
+- 10.1.0.5 piso2_1.txt
 
 Vlan2Ed1(Vendas)
-10.2.0.0/23
-- 10.2.0.1/23 piso2_1.txt
+10.2.0.0/24
+- 10.2.0.1 piso2_1.txt
 
 
 Vlan3Ed1(R&D)
-10.3.0.0/23
+10.3.0.0/24
 
 
 Vlan4Ed1(Produçao)
-10.4.0.0/23
+10.4.0.0/24
 
 
 Vlan5Ed1(Voip)
-10.5.0.0/23
+10.5.0.0/24
 - 10.5.0.1 dcDist1.txt
-- 10.5.0.2 piso2_1.txt
+- 10.5.0.2 dcDist2.txt
+- 10.5.0.3 piso2_1.txt
 
 
 Vlan6Ed1(IPTV)
@@ -39,43 +40,45 @@ Vlan8Ed1(Video vigilancia)
 
 
 Vlan9Ed1(wireless-guest)
-10.9.0.0/23
+10.9.0.0/24
 - 10.9.0.1 core1.txt
 - 10.9.0.2 core2.txt
 - 10.9.0.3 piso2_1.txt
 
 Vlan10Ed1(wireless-normal)
-10.10.0.0/23
-- 10.10.0.1/23 core1.txt
-- 10.10.0.2/23 core2.txt
-- 10.10.0.3/23 dcDist1.txt
-- 10.10.0.4/23 dcDist4.txt
-- 10.10.0.5/23 piso2_1.txt
+10.10.0.0/24
+- 10.10.0.1 core1.txt
+- 10.10.0.2 core2.txt
+- 10.10.0.3 dcDist1.txt
+- 10.10.0.4 dcDist2.txt
+- 10.10.0.5 piso2_1.txt
 
 
 Vlan11Ed1(Datacenter - Privado)
-10.11.0.0/23
+10.11.0.0/24
 - 10.11.0.1 dcDist1.txt
+- 10.11.0.2 dcDist2.txt
 
 
 Vlan12Ed1(Datacenter -Publico)
-10.12.0.0/23
+10.12.0.0/24
 - 10.12.0.1 dcDist1.txt
+- 10.12.0.2 dcDist2.txt
 
 
 Vlan101
 10.101.0.0/24
-- 10.101.0.1/24 core1.txt
-- 10.101.0.2/24 core2.txt
-- 10.101.0.3/24 dcDist1.txt
-- 10.101.0.4/24 dcDist4.txt
-- 10.101.0.5/24 piso2_1.txt
+- 10.101.0.1 core1.txt
+- 10.101.0.2 core2.txt
+- 10.101.0.3 dcDist1.txt
+- 10.101.0.4 dcDist2.txt
+- 10.101.0.5 piso2_1.txt
 
 
 Vlan102
 10.102.0.0/24
-- 10.102.0.1/24 core1.txt
-- 10.102.0.2/24 core2.txt
-- 10.102.0.3/24 dcDist1.txt
-- 10.102.0.4/24 dcDist4.txt
-- 10.102.0.5/24 piso2_1.txt
+- 10.102.0.1 core1.txt
+- 10.102.0.2 core2.txt
+- 10.102.0.3 dcDist1.txt
+- 10.102.0.4 dcDist2.txt
+- 10.102.0.5 piso2_1.txt
