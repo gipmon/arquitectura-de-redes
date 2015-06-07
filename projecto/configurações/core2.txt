@@ -2,6 +2,7 @@ en
 vlan database
 vlan 1
 vlan 9
+vlan 5
 vlan 10
 vlan 101
 vlan 102
@@ -11,12 +12,18 @@ ip routing
 
 int range f 1/0 - 9
 switchport mode trunk
-switchport trunk allowed vlan 1,9,10,101,102,1002-1005
+switchport trunk allowed vlan 1,5,9,10,101,102,1002-1005
 
 int Vlan 1
 ip address 10.1.0.2 255.255.255.0
 no autostate
 no shutdown
+
+int Vlan 5
+ip address 10.5.0.8 255.255.255.0
+no autostate
+no shutdown
+
 
 int Vlan 9
 ip address 10.9.0.2 255.255.255.0
