@@ -1,0 +1,32 @@
+R1#show ip mroute      
+IP Multicast Routing Table
+Flags: D - Dense, S - Sparse, B - Bidir Group, s - SSM Group, C - Connected,
+       L - Local, P - Pruned, R - RP-bit set, F - Register flag,
+       T - SPT-bit set, J - Join SPT, M - MSDP created entry,
+       X - Proxy Join Timer Running, A - Candidate for MSDP Advertisement,
+       U - URD, I - Received Source Specific Host Report,
+       Z - Multicast Tunnel, z - MDT-data group sender,
+       Y - Joined MDT-data group, y - Sending to MDT-data group
+Outgoing interface flags: H - Hardware switched, A - Assert winner
+ Timers: Uptime/Expires
+ Interface state: Interface, Next-Hop or VCD, State/Mode
+
+(*, 234.234.234.234), 00:17:23/stopped, RP 0.0.0.0, flags: DC
+  Incoming interface: Null, RPF nbr 0.0.0.0
+  Outgoing interface list:
+    FastEthernet0/1, Forward/Dense, 00:17:23/00:00:00
+    FastEthernet0/0, Forward/Dense, 00:17:23/00:00:00
+
+(192.1.1.100, 234.234.234.234), 00:01:38/00:02:37, flags: T
+  Incoming interface: FastEthernet0/1, RPF nbr 192.20.1.2
+  Outgoing interface list:
+    FastEthernet0/0, Forward/Dense, 00:01:41/00:00:00
+
+(*, 224.0.1.40), 00:31:27/00:02:49, RP 0.0.0.0, flags: DCL
+  Incoming interface: Null, RPF nbr 0.0.0.0
+  Outgoing interface list:
+    FastEthernet0/1, Forward/Dense, 00:19:46/00:00:00
+    FastEthernet0/0, Forward/Dense, 00:31:27/00:00:00
+
+R1#
+R1(config-if)#no ip igmp static-group 234.234.234.234 //ja nao passam pacotes UDP.

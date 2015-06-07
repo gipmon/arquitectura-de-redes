@@ -1,0 +1,14 @@
+May 29 11:24:45.376 HYPERVISOR: Release 0.2.12-amd64/Darwin (tag 2014032722)
+May 29 11:24:45.377 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 56821.
+May 29 11:24:45.383 HYPERVISOR: exec_cmd: hypervisor version 
+May 29 11:24:45.383 HYPERVISOR: exec_cmd: hypervisor uuid 
+May 29 11:24:45.383 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/Multicast/ex1/project-files/dynamips 
+May 29 11:24:45.383 GENERAL: working_dir=/Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/Multicast/ex1/project-files/dynamips
+May 29 11:24:45.384 HYPERVISOR: exec_cmd: ethsw create SW1 
+May 29 11:25:07.384 HYPERVISOR: exec_cmd: nio create_udp nio_udp6 10000 127.0.0.1 10001 
+May 29 11:25:07.402 HYPERVISOR: exec_cmd: ethsw add_nio SW1 nio_udp6 
+May 29 11:25:07.424 HYPERVISOR: exec_cmd: ethsw set_access_port SW1 nio_udp6 1 
+May 29 12:36:40.870 HYPERVISOR: exec_cmd: ethsw delete SW1 
+May 29 12:36:40.887 HYPERVISOR: exec_cmd: hypervisor stop 
+May 29 12:36:41.366 HYPERVISOR: Stopped.
+May 29 12:36:41.366 GENERAL: reset done.

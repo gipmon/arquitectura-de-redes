@@ -1,0 +1,56 @@
+May 29 10:18:07.653 HYPERVISOR: Release 0.2.12-amd64/Darwin (tag 2014032722)
+May 29 10:18:07.653 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 56681.
+May 29 10:18:07.663 HYPERVISOR: exec_cmd: hypervisor version 
+May 29 10:18:07.663 HYPERVISOR: exec_cmd: hypervisor uuid 
+May 29 10:18:07.664 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/DiffServ/ex1/project-files/dynamips 
+May 29 10:18:07.664 GENERAL: working_dir=/Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/DiffServ/ex1/project-files/dynamips
+May 29 10:18:07.664 HYPERVISOR: exec_cmd: vm create R3 3 c3725 
+May 29 10:18:07.664 VM: VM R3 created.
+May 29 10:18:07.665 HYPERVISOR: exec_cmd: vm set_con_tcp_port R3 2003 
+May 29 10:18:07.665 HYPERVISOR: exec_cmd: c3725 get_mac_addr R3 
+May 29 10:18:07.666 HYPERVISOR: exec_cmd: vm set_nvram R3 256 
+May 29 10:18:07.666 HYPERVISOR: exec_cmd: vm get_status R3 
+May 29 10:18:07.666 HYPERVISOR: exec_cmd: vm slot_add_binding R3 2 0 NM-16ESW 
+May 29 10:18:07.667 HYPERVISOR: exec_cmd: vm set_ios R3 /Users/RodrigoCunha/GNS3/images/IOS/c3725-advipservicesk9-mz.124-21.image 
+May 29 10:18:07.667 HYPERVISOR: exec_cmd: vm set_disk0 R3 1 
+May 29 10:18:07.668 HYPERVISOR: exec_cmd: vm get_status R3 
+May 29 10:18:07.668 HYPERVISOR: exec_cmd: vm set_idle_pc R3 0x60a6a390 
+May 29 10:18:07.668 HYPERVISOR: exec_cmd: vm get_status R3 
+May 29 10:18:07.669 HYPERVISOR: exec_cmd: vm slot_add_binding R3 1 0 NM-4T 
+May 29 10:18:07.670 HYPERVISOR: exec_cmd: vm set_config R3 configs/i3_startup-config.cfg 
+May 29 10:18:07.670 HYPERVISOR: exec_cmd: vm set_config R3 configs/i3_startup-config.cfg configs/i3_private-config.cfg 
+May 29 10:18:07.671 HYPERVISOR: exec_cmd: vm set_ghost_status R3 2 
+May 29 10:18:07.671 HYPERVISOR: exec_cmd: vm set_ghost_file R3 c3725-advipservicesk9-mz.124-21.image-128.ghost 
+May 29 10:20:07.942 HYPERVISOR: exec_cmd: nio create_udp nio_udp4 10005 127.0.0.1 10004 
+May 29 10:20:07.943 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 0 0 nio_udp4 
+May 29 10:20:07.944 HYPERVISOR: exec_cmd: vm get_status R3 
+May 29 10:20:14.041 HYPERVISOR: exec_cmd: nio create_udp nio_udp5 10006 127.0.0.1 10007 
+May 29 10:20:14.058 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 0 1 nio_udp5 
+May 29 10:20:14.059 HYPERVISOR: exec_cmd: vm get_status R3 
+May 29 10:20:32.420 HYPERVISOR: exec_cmd: vm get_status R3 
+May 29 10:20:32.425 HYPERVISOR: exec_cmd: vm start R3 
+May 29 10:47:14.630 HYPERVISOR: exec_cmd: nio bind_filter nio_udp4 2 capture 
+May 29 10:47:14.630 HYPERVISOR: exec_cmd: nio setup_filter nio_udp4 2 en10mb /Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/DiffServ/ex1/project-files/captures/R3_FastEthernet0-0_to_R2_FastEthernet0-1.pcap 
+May 29 10:51:12.994 HYPERVISOR: exec_cmd: nio unbind_filter nio_udp4 2 
+May 29 10:51:16.075 HYPERVISOR: exec_cmd: nio bind_filter nio_udp4 2 capture 
+May 29 10:51:16.075 HYPERVISOR: exec_cmd: nio setup_filter nio_udp4 2 en10mb /Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/DiffServ/ex1/project-files/captures/R3_FastEthernet0-0_to_R2_FastEthernet0-1.pcap 
+May 29 10:52:46.608 HYPERVISOR: exec_cmd: nio unbind_filter nio_udp4 2 
+May 29 10:52:51.779 HYPERVISOR: exec_cmd: nio bind_filter nio_udp4 2 capture 
+May 29 10:52:51.779 HYPERVISOR: exec_cmd: nio setup_filter nio_udp4 2 en10mb /Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/DiffServ/ex1/project-files/captures/R3_FastEthernet0-0_to_R2_FastEthernet0-1.pcap 
+May 29 10:53:37.300 HYPERVISOR: exec_cmd: nio unbind_filter nio_udp4 2 
+May 29 10:53:42.269 HYPERVISOR: exec_cmd: nio bind_filter nio_udp4 2 capture 
+May 29 10:53:42.269 HYPERVISOR: exec_cmd: nio setup_filter nio_udp4 2 en10mb /Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/DiffServ/ex1/project-files/captures/R3_FastEthernet0-0_to_R2_FastEthernet0-1.pcap 
+May 29 10:54:21.810 HYPERVISOR: exec_cmd: nio unbind_filter nio_udp4 2 
+May 29 10:54:28.434 HYPERVISOR: exec_cmd: nio bind_filter nio_udp4 2 capture 
+May 29 10:54:28.435 HYPERVISOR: exec_cmd: nio setup_filter nio_udp4 2 en10mb /Users/RodrigoCunha/Desktop/StudyWorkTeam/3Ano/2Semestre/AR/arquitectura-de-redes/aulas/DiffServ/ex1/project-files/captures/R3_FastEthernet0-0_to_R2_FastEthernet0-1.pcap 
+May 29 11:21:39.858 HYPERVISOR: exec_cmd: vm get_status R3 
+May 29 11:21:39.860 HYPERVISOR: exec_cmd: vm stop R3 
+May 29 11:21:39.961 VM: VM R3 shutdown.
+May 29 11:21:40.391 HYPERVISOR: exec_cmd: vm extract_config R3 
+May 29 11:22:37.315 HYPERVISOR: exec_cmd: vm get_status R3 
+May 29 11:22:37.316 HYPERVISOR: exec_cmd: vm extract_config R3 
+May 29 11:22:37.323 HYPERVISOR: exec_cmd: vm delete R3 
+May 29 11:22:37.323 VM: VM R3 destroyed.
+May 29 11:22:37.325 HYPERVISOR: exec_cmd: hypervisor stop 
+May 29 11:22:37.459 HYPERVISOR: Stopped.
+May 29 11:22:37.459 GENERAL: reset done.
