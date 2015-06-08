@@ -1,26 +1,19 @@
 en
 vlan database
 vlan 1
-vlan 5
 vlan 9
 vlan 10
 vlan 101
-vlan 102
 exit
 conf t
 ip routing
 
-int range f 1/0 - 9
+int range f 1/0 - 15
 switchport mode trunk
-switchport trunk allowed vlan 1,5,9,10,101,102,1002-1005
+switchport trunk allowed vlan 1,9,10,101,1002-1005
 
 int Vlan 1
 ip address 10.1.0.1 255.255.255.0
-no autostate
-no shutdown
-
-int Vlan 5
-ip address 10.5.0.7 255.255.255.0
 no autostate
 no shutdown
 
@@ -36,11 +29,6 @@ no shutdown
 
 int Vlan 101
 ip address 10.101.0.1 255.255.255.0
-no autostate
-no shutdown
-
-int Vlan 102
-ip address 10.102.0.1 255.255.255.0
 no autostate
 no shutdown
 
