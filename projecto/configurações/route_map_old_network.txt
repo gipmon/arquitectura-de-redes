@@ -1,0 +1,1 @@
+access-list 1 permit 192.168.0.0 0.255.255.255route-map OSPF_into_RIP deny 10 match ip address 1route-map OSPF_into_RIP permit 20router rip redistribute ospf 10 route-map OSPF_into_RIProuter ospf 10 redistribute rip subnets

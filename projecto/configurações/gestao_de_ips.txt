@@ -100,7 +100,7 @@ Vlan12Ed1(Datacenter -Publico)
 10.12.0.0/24
 - 10.12.0.1 dcDist1.txt
 - 10.12.0.2 dcDist2.txt
-- 10.12.0.3 vpcs.txt 
+- 10.12.0.3 vpcs.txt
 
 
 Vlan13Ed1(Administração)
@@ -119,6 +119,7 @@ Vlan101
 - 10.101.0.6 piso2_2.txt
 - 10.101.0.7 piso4_1.txt
 - 10.101.0.8 piso4_2.txt
+- 10.101.0.9 old_network.txt
 
 
 Vlan102
@@ -130,3 +131,4 @@ Vlan102
 - 10.102.0.6 piso2_2.txt
 - 10.102.0.7 piso4_1.txt
 - 10.102.0.8 piso4_2.txt
+- 10.102.0.9 old_network.txt
