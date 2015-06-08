@@ -1,0 +1,5 @@
+No primeiro trunk deixamos passar aquelas que estão disponíveis naquela rede, por exemplo,
+datacenter está disponível os terminais que é de conf da cisco, wireless-normal, datacenter-publico,
+datacenter-privado.
+Para ligar ao core deixamos passar as end-to-end possíveis no piso, por exemplo no datacenter
+passa o wireless-normal e para cada interface passa a 101 e a 102.

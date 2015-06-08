@@ -24,16 +24,16 @@ Vlan4Ed1(Produçao)
 10.4.0.0/24
 
 
-Vlan5Ed1(Voip)
+Vlan5Ed1(Voip DC)
 10.5.0.0/24
 - 10.5.0.1 dcDist1.txt
 - 10.5.0.2 dcDist2.txt
 
-Vlan20Ed1(Voip)
+Vlan20Ed1(Voip PISO2)
 - 10.20.0.1 piso2_1.txt
 - 10.20.0.1 piso2_2.txt
 
-Vlan40Ed1(Voip)
+Vlan40Ed1(Voip PISO4)
 - 10.40.0.1 piso4_1.txt
 - 10.40.0.2 piso4_2.txt
 
