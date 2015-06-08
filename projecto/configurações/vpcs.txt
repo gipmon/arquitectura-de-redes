@@ -1,0 +1,55 @@
+# PISO 2
+
+# piso2_voip
+ip 10.20.0.3 gateway 10.20.0.1
+save
+
+# piso2_wifi_guest
+ip 10.9.0.7 gateway 10.9.0.3
+save
+
+# piso2_wifi_normal
+ip 10.10.0.9 gateway 10.10.0.5
+save
+
+# piso2_sales
+ip 10.2.0.3 gateway 10.2.0.1
+save
+
+# piso2_videoconf
+ip 10.7.0.5 gateway 10.7.0.2
+save
+
+# piso2_sales2
+ip 10.2.0.4 gateway 10.2.0.1
+save
+
+# PISO 4
+
+#piso4_voip
+ip 10.40.0.3 gateway 10.40.0.1
+save
+
+#piso4_admin1
+ip 10.13.0.3 gateway 10.13.0.1
+save
+
+#piso4_wifin
+ip 10.10.0.10  gateway 10.10.0.7
+save
+
+#piso4_terminais
+ip 10.1.0.9 gateway 10.1.0.8
+save
+
+#piso4_videoconf
+ip 10.17.0.3 gateway 10.17.0.2
+save
+
+#piso4_wifig
+ip 10.9.0.8 gateway 10.9.0.6
+save
+
+#piso4_admin2
+ip 10.13.0.4 gateway 10.13.0.2
+save

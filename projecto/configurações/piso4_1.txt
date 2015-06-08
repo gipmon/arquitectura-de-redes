@@ -1,7 +1,7 @@
 en
 vlan database
 vlan 1
-vlan 7
+vlan 17
 vlan 9
 vlan 10
 vlan 13
@@ -22,15 +22,15 @@ switchport trunk allowed vlan 1,9,10,102,1002-1005
 
 int range f 1/2 - 15
 switchport mode trunk
-switchport trunk allowed vlan 1,7,9,10,13,40,1002-1005
+switchport trunk allowed vlan 1,17,9,10,13,40,1002-1005
 
 int Vlan 1
 ip address 10.1.0.7 255.255.255.0
 no autostate
 no shutdown
 
-int Vlan 7
-ip address 10.7.0.3 255.255.255.0
+int Vlan 17
+ip address 10.17.0.1 255.255.255.0
 no autostate
 no shutdown
 

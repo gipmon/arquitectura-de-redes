@@ -8,13 +8,15 @@ Vlan1Ed1(Terminais)
 - 10.1.0.6 piso2_2.txt
 - 10.1.0.7 piso4_1.txt
 - 10.1.0.8 piso4_2.txt
+- 10.1.0.9 vpcs.txt (piso4)
 
 
 Vlan2Ed1(Vendas)
 10.2.0.0/24
 - 10.2.0.1 piso2_1.txt
 - 10.2.0.2 piso2_2.txt
-- 10.2.0.3 PC1
+- 10.2.0.3 vpcs.txt (piso2)
+- 10.2.0.4 vpcs.txt (piso3)
 
 Vlan3Ed1(R&D)
 10.3.0.0/24
@@ -31,24 +33,30 @@ Vlan5Ed1(Voip DC)
 
 Vlan20Ed1(Voip PISO2)
 - 10.20.0.1 piso2_1.txt
-- 10.20.0.1 piso2_2.txt
+- 10.20.0.2 piso2_2.txt
+- 10.20.0.3 vpcs.txt
 
 Vlan40Ed1(Voip PISO4)
 - 10.40.0.1 piso4_1.txt
 - 10.40.0.2 piso4_2.txt
+- 10.40.0.3 vpcs.txt
 
 
 Vlan6Ed1(IPTV)
 10.6.0.0/24
 
 
-Vlan7Ed1(Video conf)
+Vlan7Ed1(Video conf - Piso 2)
 10.7.0.0/24
 - 10.7.0.1 piso2_1.txt
 - 10.7.0.2 piso2_2.txt
-- 10.7.0.3 piso4_1.txt
-- 10.7.0.4 piso4_2.txt
+- 10.7.0.5 vpcs.txt
 
+Vlan17Ed1(Video conf - Piso 4)
+10.17.0.0/24
+- 10.17.0.1 piso4_1.txt
+- 10.17.0.2 piso4_2.txt
+- 10.17.0.3 vpcs.txt (piso4)
 
 Vlan8Ed1(Video vigilancia)
 10.8.0.0/24
@@ -62,6 +70,8 @@ Vlan9Ed1(wireless-guest)
 - 10.9.0.4 piso2_2.txt
 - 10.9.0.5 piso4_1.txt
 - 10.9.0.6 piso4_2.txt
+- 10.9.0.7 vpcs.txt (piso2)
+- 10.9.0.8 vpcs.txt (piso4)
 
 
 Vlan10Ed1(wireless-normal)
@@ -74,6 +84,8 @@ Vlan10Ed1(wireless-normal)
 - 10.10.0.6 piso2_2.txt
 - 10.10.0.7 piso4_1.txt
 - 10.10.0.8 piso4_2.txt
+- 10.10.0.9 vpcs.txt (piso2)
+- 10.10.0.10 vpcs.txt (piso4)
 
 
 
@@ -91,7 +103,10 @@ Vlan12Ed1(Datacenter -Publico)
 
 Vlan13Ed1(Administração)
 10.13.0.0/24
--
+- 10.13.0.1 piso4_1.txt
+- 10.13.0.2 piso4_2.txt
+- 10.13.0.3 vpcs.txt (piso 4)
+- 10.13.0.4 vpcs.txt (piso4)
 
 Vlan101
 10.101.0.0/24

@@ -23,6 +23,10 @@ int range f 1/4
 switchport mode trunk
 switchport trunk allowed vlan 1,10,102,1002-1005
 
+int range f 1/5
+switchport mode trunk
+switchport trunk allowed vlan 1,5,10,11,12,101,102,1002-1005
+
 int Vlan 1
 ip address 10.1.0.3 255.255.255.0
 no autostate
