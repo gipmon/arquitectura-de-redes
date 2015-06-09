@@ -1,0 +1,24 @@
+en
+conf t
+ip routing
+int f1/0
+no switchport
+ip address 10.50.0.1 255.255.255.0 ! R1 > core1
+no shut
+
+int f1/1
+no switchport
+ip address 10.51.0.1 255.255.255.0 ! R1 > core2
+no shut
+
+int f1/2
+no switchport
+ip address 10.52.0.1 255.255.255.0 ! R1 > R2
+no shut
+
+exit
+router ospf 1
+network 10.0.0.0 0.255.255.255 area 0
+
+end
+write
