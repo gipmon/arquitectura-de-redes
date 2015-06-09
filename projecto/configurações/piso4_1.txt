@@ -29,6 +29,7 @@ switchport trunk allowed vlan 1,17,9,10,13,40,1002-1005
 
 int Vlan 1
 ip address 10.1.0.7 255.255.255.0
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:1:1::7/64
 ipv6 ospf 1 area 0
@@ -37,6 +38,7 @@ no shutdown
 
 int Vlan 17
 ip address 10.17.0.1 255.255.255.0
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:17:1::1/64
 ipv6 ospf 1 area 0
@@ -45,6 +47,7 @@ no shutdown
 
 int Vlan 9
 ip address 10.9.0.5 255.255.255.0
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:9:1::5/64
 ipv6 ospf 1 area 0
@@ -53,6 +56,7 @@ no shutdown
 
 int Vlan 10
 ip address 10.10.0.7 255.255.255.0
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:10:1::7/64
 ipv6 ospf 1 area 0
@@ -61,6 +65,7 @@ no shutdown
 
 int Vlan 13
 ip address 10.13.0.1 255.255.255.0
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:13:1::1/64
 ipv6 ospf 1 area 0
@@ -69,6 +74,7 @@ no shutdown
 
 int Vlan 40
 ip address 10.40.0.1 255.255.255.0
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:40:1::1/64
 ipv6 ospf 1 area 0
@@ -77,6 +83,7 @@ no shutdown
 
 int Vlan 101
 ip address 10.101.0.7 255.255.255.0
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:101:1::7/64
 ipv6 ospf 1 area 0
@@ -85,6 +92,7 @@ no shutdown
 
 int Vlan 102
 ip address 10.102.0.7 255.255.255.0
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:102:1::7/64
 ipv6 ospf 1 area 0

@@ -64,6 +64,12 @@ no autostate
 router rip
 version 2
 network 192.168.0.0
+network 192.168.1.0
+network 192.168.2.0
+network 192.168.3.0
+network 192.168.4.0
+network 192.168.100.0
+network 192.168.200.0
 redistribute ospf 10
 
 router ospf 10

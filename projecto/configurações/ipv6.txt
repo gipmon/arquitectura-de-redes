@@ -2,6 +2,7 @@ conf t
 ipv6 unicast-routing
 
 int <if-name>
+ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:<VLAN>:2::/48 anycast
 ipv6 address 2002:C:C::<VLAN>:1::/48 eui-64
