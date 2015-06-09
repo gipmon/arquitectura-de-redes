@@ -3,8 +3,8 @@ ipv6 unicast-routing
 
 int <if-name>
 ipv6 enable
-ipv6 address 2002:C:C::<VLAN>:2::/48 anycast
-ipv6 address 2002:C:C:::<VLAN>:1::/48 eui-64
+ipv6 address 2002:C:C:<VLAN>:2::/48 anycast
+ipv6 address 2002:C:C::<VLAN>:1::/48 eui-64
 no shut
 
 Router1(config)#ipv6 router ospf 1 !The process identifier can be any string
