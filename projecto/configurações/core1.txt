@@ -51,6 +51,16 @@ ipv6 ospf 1 area 0
 no autostate
 no shutdown
 
+inf f0/0
+ip address 10.50.0.3 255.255.255.252
+no shut
+no autostate
+
+inf f0/1
+ip address 10.51.0.3 255.255.255.252
+no shut
+no autostate
+
 exit
 router ospf 1
 network 10.0.0.0 0.255.255.255 area 0
