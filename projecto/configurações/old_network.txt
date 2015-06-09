@@ -13,11 +13,11 @@ exit
 conf t
 ip routing
 
-int f0/0
+int range f1/0
 switchport mode trunk
 switchport trunk allowed vlan 1,101,1002-1005
 
-int f0/1
+int range f1/1
 switchport mode trunk
 switchport trunk allowed vlan 1,102,1002-1005
 
@@ -64,6 +64,11 @@ no autostate
 router rip
 version 2
 network 192.168.0.0
+redistribute ospf 10
+
+router ospf 10
+network 10.0.0.0 0.255.255.255 area 0
+redistribute rip subnets
 
 end
 write
