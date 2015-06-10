@@ -3,18 +3,21 @@ conf t
 ip routing
 ipv6 unicast-routing
 
+crypto isakmp policy 30
+authentication pre-share
+crypto isakmp key labcom address 193.10.10.1
+crypto ipsec transform-set authT ah-sha-hmac
+crypto ipsec transform-set cipherT esp-des
+crypto ipsec transform-set auth_ciphT ah-sha-hmac esp-de
+crypto ipsec profile ARipsec
+set transform-set authT cipherT  auth_ciphT
+
 int Tunnel 0
 ip unnumbered f0/0
-tunnel mode gre ip
 tunnel source f0/0
 tunnel destination 193.10.10.1
-no shut
-
-int Tunnel 1
-ip unnumbered f0/0
-tunnel mode gre ip
-tunnel source f0/0
-tunnel destination 193.10.10.5
+tunnel mode ipsec ipv4
+tunnel protection ipsec profile ARipsec
 no shut
 
 int f0/0
@@ -29,17 +32,20 @@ ip address 193.10.10.10 255.255.255.252 ! Lisboa > ISP_PT2
 no cdp log mismatch duplex
 no shut
 
+int f1/1
+no switchport
+ip address 193.10.10.17 255.255.255.252 ! LISBOA > LX VPCS
+ip ospf mtu-ignore
+! ipv6 enable
+! ipv6 address 2002:C:C:51:1::1/64
+! ipv6 ospf 1 area 0
+no cdp log mismatch duplex
+no shut
+
 exit
 
-ip route 193.10.10.224 255.255.255.224 Tunnel 0 193.10.10.1 ! DC
-ip route 193.10.10.192 255.255.255.224 Tunnel 0 193.10.10.1 ! VOIP
-ip route 193.10.10.160 255.255.255.224 Tunnel 0 193.10.10.1 ! PISO 4
-ip route 193.10.10.0 255.255.255.252 193.10.10.13 ! Lisboa > R1 tem de ir pelo ISP_PT1
-
-ip route 193.10.10.224 255.255.255.224 Tunnel 1 193.10.10.6 ! DC
-ip route 193.10.10.192 255.255.255.224 Tunnel 1 193.10.10.6 ! VOIP
-ip route 193.10.10.160 255.255.255.224 Tunnel 1 193.10.10.6 ! PISO 4
-ip route 193.10.10.4 255.255.255.252 193.10.10.9 ! Lisboa > R1 tem de ir pelo ISP_PT1
+ip route 193.10.10.224 255.255.255.224 Tunnel 0 193.10.10.1
+ip route 193.10.10.1 255.255.255.255 193.10.10.13
 
 end
 write
