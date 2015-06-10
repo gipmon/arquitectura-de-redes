@@ -54,10 +54,10 @@ Vlan7Ed1(Video conf - Piso 2)
 - 10.7.0.5 vpcs.txt
 
 Vlan17Ed1(Video conf - Piso 4)
-10.17.0.0/24
-- 10.17.0.1 piso4_1.txt
-- 10.17.0.2 piso4_2.txt
-- 10.17.0.3 vpcs.txt (piso4)
+193.10.10.128/26
+- 193.10.10.136 piso4_1.txt
+- 193.10.10.137 piso4_2.txt
+- 193.10.10.138 vpcs.txt (piso4)
 
 Vlan8Ed1(Video vigilancia)
 10.8.0.0/24

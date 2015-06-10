@@ -8,7 +8,8 @@ ipv6 address 2002:C:C:<VLAN>:2::/48 anycast
 ipv6 address 2002:C:C::<VLAN>:1::/48 eui-64
 no shut
 
-Router1(config)#ipv6 router ospf 1 !The process identifier can be any string
+Router1(config)#ipv6 router ospf 1
+log-adjacency-changes !The process identifier can be any string
 Router1(config-rtr)# router-id <n.n.n.n> !Manually define OSPFv3 RID
 Router1(config)# interface <if-name>
 Router1(config-if)# ipv6 ospf 1 area 0

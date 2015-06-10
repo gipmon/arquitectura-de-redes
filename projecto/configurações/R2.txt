@@ -1,23 +1,44 @@
 en
 conf t
 ip routing
+ipv6 unicast-routing
+ipv6 router ospf 1
+log-adjacency-changes
+router-id 9.9.9.9
+
 int f1/0
 no switchport
 ip address 10.53.0.1 255.255.255.0 ! R2 > core1
+ip ospf mtu-ignore
+ipv6 enable
+ipv6 address 2002:C:C:53:1::1/64
+ipv6 ospf 1 area 0
+no cdp log mismatch duplex
 no shut
 
 int f1/1
 no switchport
 ip address 10.54.0.1 255.255.255.0 ! R2 > core2
+ip ospf mtu-ignore
+ipv6 enable
+ipv6 address 2002:C:C:54:1::1/64
+ipv6 ospf 1 area 0
+no cdp log mismatch duplex
 no shut
 
 int f1/2
 no switchport
 ip address 10.52.0.2 255.255.255.0 ! R2 > R1
+ip ospf mtu-ignore
+ipv6 enable
+ipv6 address 2002:C:C:52:1::2/64
+ipv6 ospf 1 area 0
+no cdp log mismatch duplex
 no shut
 
 exit
 router ospf 1
+log-adjacency-changes
 network 10.0.0.0 0.255.255.255 area 0
 
 end

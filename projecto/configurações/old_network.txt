@@ -15,10 +15,12 @@ ip routing
 
 int range f1/0
 switchport mode trunk
+no cdp log mismatch duplex
 switchport trunk allowed vlan 1,101,1002-1005
 
 int range f1/1
 switchport mode trunk
+no cdp log mismatch duplex
 switchport trunk allowed vlan 1,102,1002-1005
 
 int Vlan 1
@@ -72,7 +74,8 @@ network 192.168.100.0
 network 192.168.200.0
 redistribute ospf 10
 
-router ospf 10
+router ospf 1
+log-adjacency-changes0
 network 10.0.0.0 0.255.255.255 area 0
 redistribute rip subnets
 

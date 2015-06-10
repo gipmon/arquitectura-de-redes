@@ -13,18 +13,22 @@ conf t
 ip routing
 ipv6 unicast-routing
 ipv6 router ospf 1
+log-adjacency-changes
 router-id 8.8.8.8
 
 int range f 1/0
 switchport mode trunk
+no cdp log mismatch duplex
 switchport trunk allowed vlan 1,9,10,101,1002-1005
 
 int range f 1/1
 switchport mode trunk
+no cdp log mismatch duplex
 switchport trunk allowed vlan 1,9,10,102,1002-1005
 
 int range f 1/2 - 15
 switchport mode trunk
+no cdp log mismatch duplex
 switchport trunk allowed vlan 1,17,9,10,13,40,1002-1005
 
 int Vlan 1
@@ -32,15 +36,6 @@ ip address 10.1.0.8 255.255.255.0
 ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:1:1::8/64
-ipv6 ospf 1 area 0
-no autostate
-no shutdown
-
-int Vlan 17
-ip address 10.17.0.2 255.255.255.0
-ip ospf mtu-ignore
-ipv6 enable
-ipv6 address 2002:C:C:17:1::2/64
 ipv6 ospf 1 area 0
 no autostate
 no shutdown
@@ -68,6 +63,15 @@ ip address 10.13.0.2 255.255.255.0
 ip ospf mtu-ignore
 ipv6 enable
 ipv6 address 2002:C:C:13:1::2/64
+ipv6 ospf 1 area 0
+no autostate
+no shutdown
+
+int Vlan 17
+ip address 193.10.10.162 255.255.255.224
+ip ospf mtu-ignore
+ipv6 enable
+ipv6 address 2002:C:C:17:1::1/64
 ipv6 ospf 1 area 0
 no autostate
 no shutdown
@@ -101,7 +105,9 @@ no shutdown
 
 exit
 router ospf 1
+log-adjacency-changes
 network 10.0.0.0 0.255.255.255 area 0
+network 193.10.10.160 0.0.0.31 area 0
 
 passive-interface vlan 1
 passive-interface vlan 9
