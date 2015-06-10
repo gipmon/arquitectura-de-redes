@@ -3,6 +3,20 @@ conf t
 ip routing
 ipv6 unicast-routing
 
+int Tunnel 0
+ip unnumbered f0/0
+tunnel mode gre ip
+tunnel source f0/0
+tunnel destination 193.10.10.1
+no shut
+
+int Tunnel 1
+ip unnumbered f0/0
+tunnel mode gre ip
+tunnel source f0/0
+tunnel destination 193.10.10.5
+no shut
+
 int f0/0
 ip address 193.10.10.14 255.255.255.252 ! Lisboa > ISP_PT1
 ipv6 enable
@@ -15,19 +29,17 @@ ip address 193.10.10.10 255.255.255.252 ! Lisboa > ISP_PT2
 no cdp log mismatch duplex
 no shut
 
-int Tunnel0
-tunnel source 193.10.10.14
-tunnel destination 193.10.10.1
-ip unnumbered f0/0
-tunnel mode ipip
-
-ip route 193.10.10.192 255.255.255.224 Tunnel 0 193.10.10.1 ! VOIP DC
-ip route 193.10.10.224 255.255.255.224 Tunnel 0 193.10.10.1 ! DATACENTER
-ip route 193.10.10.160 255.255.255.224 Tunnel 0 193.10.10.1 ! PISO 4
-
-ip route 193.10.10.0 255.255.255.224 193.10.10.13 ! Lisboa > R1 tem de ir pelo ISP_PT1
-
 exit
+
+ip route 193.10.10.224 255.255.255.224 Tunnel 0 193.10.10.1 ! DC
+ip route 193.10.10.192 255.255.255.224 Tunnel 0 193.10.10.1 ! VOIP
+ip route 193.10.10.160 255.255.255.224 Tunnel 0 193.10.10.1 ! PISO 4
+ip route 193.10.10.0 255.255.255.252 193.10.10.13 ! Lisboa > R1 tem de ir pelo ISP_PT1
+
+ip route 193.10.10.224 255.255.255.224 Tunnel 1 193.10.10.6 ! DC
+ip route 193.10.10.192 255.255.255.224 Tunnel 1 193.10.10.6 ! VOIP
+ip route 193.10.10.160 255.255.255.224 Tunnel 1 193.10.10.6 ! PISO 4
+ip route 193.10.10.4 255.255.255.252 193.10.10.9 ! Lisboa > R1 tem de ir pelo ISP_PT1
 
 end
 write

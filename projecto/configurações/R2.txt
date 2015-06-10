@@ -44,11 +44,21 @@ ipv6 ospf 1 area 0
 no cdp log mismatch duplex
 no shut
 
+int Tunnel 0
+ip unnumbered f0/0
+tunnel mode gre ip
+tunnel source f0/0
+tunnel destination 193.10.10.10
+no shut
+
 exit
+
+ip route 193.10.10.8 255.255.255.252 193.10.10.6 ! R2 > Lisboa tem de ir pelo ISP_PT2
+
 router ospf 1
 log-adjacency-changes
 network 10.0.0.0 0.255.255.255 area 0
-network 193.10.10.4 255.255.255.252 area 0
+redis static subnet
 
 end
 write
