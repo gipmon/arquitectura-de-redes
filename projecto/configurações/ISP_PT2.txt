@@ -1,0 +1,22 @@
+en
+conf t
+ip routing
+
+int f0/0
+ip address 193.10.10.6 255.255.255.252 ! ISP_PT2 > R2
+no cdp log mismatch duplex
+no shut
+
+int f0/1
+ip address 193.10.10.9 255.255.255.252 ! ISP_PT2 > Lisboa
+no cdp log mismatch duplex
+no shut
+
+ip route 193.10.10.192 255.255.255.224 193.10.10.5 ! VOIP DC
+ip route 193.10.10.224 255.255.255.224 193.10.10.5 ! DATACENTER
+ip route 193.10.10.160 255.255.255.224 193.10.10.5 ! PISO 4
+
+exit
+
+end
+write
