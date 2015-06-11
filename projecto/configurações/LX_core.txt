@@ -29,6 +29,9 @@ no shut
 
 exit
 
+! SNMP
+snmp-server community myrouter RO
+
 ip route 193.10.10.16 255.255.255.252 193.10.10.21
 
 !QoS
