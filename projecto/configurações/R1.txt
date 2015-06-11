@@ -63,8 +63,33 @@ no shut
 
 exit
 
+ip nat pool MYNATPOOL 193.10.10.33 193.10.10.62 netmask 255.255.255.0
+access-list 2 permit 10.50.0.0 0.0.255.255
+
+int f1/0
+ip nat inside
+int f1/1
+ip nat inside
+int f1/2
+ip nat inside
+
+int f0/0
+ip nat outside
+
+ip nat translation timeout 120
+
 ip route 193.10.10.16 255.255.255.252 Tunnel 0 193.10.10.14
 ip route 193.10.10.14 255.255.255.255 193.10.10.2
+
+ip route 193.10.10.20 255.255.255.252 193.10.10.14 ! NAT EXPERIMENT
+
+ip nat Stateful id 1
+primary 10.52.0.1
+peer 10.52.0.2
+mapping-id 10
+
+ip nat inside source list 2 pool MYNATPOOL mapping-id 10 overload
+
 
 router ospf 1
 log-adjacency-changes

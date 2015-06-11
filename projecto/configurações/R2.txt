@@ -38,9 +38,6 @@ no shut
 
 int f0/0
 ip address 193.10.10.5 255.255.255.252 ! R2 > ISP_PT2
-ipv6 enable
-ipv6 address 2002:C:C:1002:1::1/64
-ipv6 ospf 1 area 0
 no cdp log mismatch duplex
 no shut
 
@@ -51,13 +48,52 @@ tunnel source f0/0
 tunnel destination 193.10.10.10
 no shut
 
+int Tunnel 1
+ipv6 address 2002:C:C:1006:1::1/64
+tunnel source f0/0
+tunnel destination 193.10.10.10
+tunnel mode ipv6ip
+no shut
+
 exit
 
-ip route 193.10.10.8 255.255.255.252 193.10.10.6 ! R1 > Lisboa tem de ir pelo ISP_PT1
+! NAT
+
+ip nat pool MYNATPOOL 193.10.10.33 193.10.10.62 netmask 255.255.255.0
+access-list 2 permit 10.50.0.0 0.0.255.255
+
+int f1/0
+ip nat inside
+int f1/1
+ip nat inside
+int f1/2
+ip nat inside
+
+int f0/0
+ip nat outside
+
+ip nat translation timeout 120
+
+ip route 193.10.10.20 255.255.255.252 193.10.10.14 ! NAT EXPERIMENT
+
+ip nat Stateful id 2
+backup 10.52.0.2
+peer 10.52.0.1
+mapping-id 10
+
+ip nat inside source list 2 pool MYNATPOOL mapping-id 10 overload
+
+! ROTAS ESTATICAS
+
+ip route 193.10.10.10 255.255.255.255 193.10.10.6 ! R2 > ISP2 > Lisboa
+ipv6 route 2002:C:C:1005::/64 Tunnel 1 ! REDE DE LISBOA IPV6
 
 router ospf 1
 log-adjacency-changes
 network 10.0.0.0 0.255.255.255 area 0
+redis static subnet
+
+ipv6 router ospf 1
 redis static subnet
 
 end
