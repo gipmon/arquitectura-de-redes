@@ -11,6 +11,7 @@ ipv6 unicast-routing
 ipv6 router ospf 1
 log-adjacency-changes
 router-id 2.2.2.2
+ip cef
 
 int range f 1/0 - 13
 switchport mode trunk
@@ -77,6 +78,28 @@ exit
 router ospf 1
 log-adjacency-changes
 network 10.0.0.0 0.255.255.255 area 0
+
+! QoS
+
+class-map match-all PREMIUM
+match ip dscp 46
+class-map match-all BEST-EFFORT
+match ip dscp 0
+
+policy-map EDGE
+class PREMIUM
+priority percent 40
+class BEST-EFFORT
+police 16000 2000 2000 conform-action set-dscp-transmit 0
+
+int range f1/3 - 13
+service-policy output EDGE
+
+int f1/14
+service-policy output EDGE
+
+int f1/15
+service-policy output EDGE
 
 passive-interface vlan 1
 passive-interface vlan 9

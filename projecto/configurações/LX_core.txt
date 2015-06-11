@@ -1,0 +1,63 @@
+en
+conf t
+ip routing
+ip cef
+ip multicast-routing
+
+int f0/0
+ip address 193.10.10.22 255.255.255.252
+ip pim dense-mode
+no shut
+
+int f0/1
+ip address 193.10.10.25 255.255.255.252
+ip pim dense-mode
+ip igmp static-group 234.234.234.234
+no shut
+
+int f1/0
+no switchport
+ip address 193.10.10.29 255.255.255.252
+ip pim dense-mode
+no shut
+
+int f1/1
+no switchport
+ip address 10.250.10.1 255.255.255.0
+ip pim dense-mode
+no shut
+
+exit
+
+ip route 193.10.10.16 255.255.255.252 193.10.10.21
+
+!QoS
+access-list 101 permit ip 193.10.10.26 0.0.0.0 any
+
+class-map match-all AF11
+match access-group 101
+
+policy-map SETDSCP
+class AF11
+set ip dscp 10
+
+int f0/1
+service-policy input SETDSCP
+
+class-map match-all GOLD
+match ip dscp 10
+
+class-map match-all BEST-EFFORT
+match ip dscp 0
+
+policy-map EDGE
+class GOLD
+bandwidth percent 40
+class BEST-EFFORT
+police 16000 2000 2000 conform-action set-dscp-transmit 0
+
+int f0/0
+service-policy output EDGE
+
+end
+write

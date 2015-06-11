@@ -1,6 +1,7 @@
 en
 conf t
 ip routing
+ip multicast-routing
 ipv6 unicast-routing
 
 crypto isakmp policy 30
@@ -57,6 +58,10 @@ ip route 193.10.10.1 255.255.255.255 193.10.10.13 ! LISBOA > ISP1 > R1
 
 ip route 193.10.10.5 255.255.255.255 193.10.10.9  ! LISBOA > ISP2 > R2
 ipv6 route 2002:C:C::/48 Tunnel 1 ! IPV6 to IPV4
+
+ip route 193.10.10.20 255.255.255.252 193.10.10.18 ! LX CORE
+ip route 193.10.10.24 255.255.255.252 193.10.10.18 ! LX PC1
+ip route 193.10.10.28 255.255.255.252 193.10.10.18 ! LX PC2
 
 end
 write

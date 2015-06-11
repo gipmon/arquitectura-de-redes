@@ -14,6 +14,7 @@ ipv6 unicast-routing
 ipv6 router ospf 1
 log-adjacency-changes
 router-id 4.4.4.4
+ip cef
 
 int range f 1/0 - 2
 switchport mode trunk
@@ -104,6 +105,33 @@ log-adjacency-changes
 network 10.0.0.0 0.255.255.255 area 0
 network 193.10.10.192 0.0.0.31 area 0
 network 193.10.10.224 0.0.0.31 area 0
+
+! QoS DiffServ
+access-list 101 permit icmp any any ! DC PRIVADO, PREMIUM CLASS
+
+class-map match-all EF
+match access-group 101
+
+policy-map SETDSCP
+class EF
+set ip dscp 46
+
+int range f1/1
+service-policy input SETDSCP
+
+class-map match-all PREMIUM
+match ip dscp 46
+class-map match-all BEST-EFFORT
+match ip dscp 0
+
+policy-map EDGE
+class PREMIUM
+priority percent 40
+class BEST-EFFORT
+police 16000 2000 2000 conform-action set-dscp-transmit 0
+
+int range f1/3 - 4
+service-policy output EDGE
 
 passive-interface vlan 1
 passive-interface vlan 10

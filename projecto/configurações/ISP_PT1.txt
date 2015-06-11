@@ -2,6 +2,7 @@ en
 conf t
 ip routing
 ipv6 unicast-routing
+ip cef
 
 int f0/0
 ip address 193.10.10.2 255.255.255.252 ! ISP_PT1 > R1

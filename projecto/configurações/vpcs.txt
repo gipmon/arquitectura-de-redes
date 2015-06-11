@@ -72,3 +72,13 @@ save
 #dc_public
 ip 193.10.10.227 gateway 193.10.10.226
 save
+
+
+# LISBOA
+# PC1
+ip 193.10.10.26 gateway 193.10.10.25
+save
+
+# PC2
+ip 193.10.10.30 gateway 193.10.10.29
+save
